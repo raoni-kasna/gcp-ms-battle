@@ -131,10 +131,16 @@ module.exports = class ArenaSimulator {
   calculateNextMove() {
     const playersOfInterest = this.findPlayersOfInterest();
 
+    if  (playersOfInterest.threats.length > 0 && this.player.wasHit) {
+      const opponent = threats[0]
+      // move towards threat
+
+
+    }
     console.error('threats', playersOfInterest.threats.join(','));
     if (playersOfInterest.targets.length > 0) {
       // TODO: players might get stuck shooting each other
-      console.error("throw");
+      console.error("throw", playersOfInterest.targets[0]);
       return "T";
     }
 
