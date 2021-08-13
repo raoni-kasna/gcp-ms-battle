@@ -132,33 +132,28 @@ module.exports = class ArenaSimulator {
     return playersOfInterest;
   }
 
-  // moveToThreat() {
-  //   const opponent = threats.sort((a, b) => a.score - b.score);
-  //   const { x, y, direction } = this.player;
-  //   if (x === opponent.x) {
-  //     if (y - opponent.y  < 0)
-  //   }
-  //   // move towards threat
-  // }
-
   calculateNextMove() {
     const playersOfInterest = this.findPlayersOfInterest();
+    const validMoves = this.getValidNextMoves(playersOfInterest);
 
     if (
       playersOfInterest.threats.length > 0 &&
       (this.player.wasHit || playersOfInterest.targets.length === 0)
     ) {
       console.error("move to threat", playersOfInterest.threats.join(","));
-      // return this.moveToThreat();
+      if (validMoves.includes('F')) {
+        return 'F'
+      }
+
+      return validMoves[Math.floor(Math.random() * validMoves.length)];
     }
 
     if (playersOfInterest.targets.length > 0) {
-      // TODO: players might get stuck shooting each other
       console.error("throw", playersOfInterest.targets[0]);
       return "T";
     }
 
-    const validMoves = this.getValidNextMoves(playersOfInterest);
+    
     console.error("valid moves", validMoves);
     if (validMoves.includes("F")) {
       console.error("move forward");
