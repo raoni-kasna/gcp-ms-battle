@@ -148,6 +148,13 @@ module.exports = class ArenaSimulator {
     //   return validMoves[Math.floor(Math.random() * validMoves.length)];
     // }
 
+    if (this.player.wasHit) {
+      const nextMove = validMoves[Math.floor(Math.random() * validMoves.length)];
+      console.error("Random move");
+      return nextMove;
+    }
+
+
     if (playersOfInterest.targets.length > 0) {
       console.error("throw", playersOfInterest.targets[0]);
       return "T";
