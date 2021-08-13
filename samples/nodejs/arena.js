@@ -2,7 +2,7 @@ module.exports = class ArenaSimulator {
   constructor(arena) {
     this.arena = arena.arena;
     this.player = this.arena.state[arena._links.self.href];
-    console.error("player", player);
+    console.error("player", this.player);
   }
 
   static isTarget(shooter, target) {
