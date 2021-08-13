@@ -138,6 +138,7 @@ module.exports = class ArenaSimulator {
     }
 
     const validMoves = this.getValidNextMoves(playersOfInterest);
+    console.error('valid moves', validMoves);
     if (validMoves.includes("F")) {
       console.error("move forward");
       return "F";
