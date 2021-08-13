@@ -47,7 +47,7 @@ module.exports = class ArenaSimulator {
       }
 
       if (canMoveForward) {
-        givalidMoves.push("F");
+        validMoves.push("F");
       }
     }
 
