@@ -1,0 +1,9 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: nodejs-bot
+spec:
+  template:
+    spec:
+      containers:
+      - image: gcr.io/qwiklabs-gcp-00-7b884310d97a/nodejs-bot:latest
