@@ -2,6 +2,7 @@ module.exports = class ArenaSimulator {
   constructor(arena) {
     this.arena = arena.arena;
     this.player = this.arena.state[arena._links.self.href];
+    console.log("player", player);
   }
 
   static isTarget(shooter, target) {
@@ -92,35 +93,38 @@ module.exports = class ArenaSimulator {
 
       const isTarget = ArenaSimulator.isTarget(this.player, opponent);
       if (isTarget) {
+        console.log('target', playerId);
+        console.log(this.player, opponent);
         playersOfInterest.targets.push(opponent);
       }
 
       const isThreat = ArenaSimulator.isTarget(opponent, this.player);
       if (isThreat) {
+        console.log('threat', playerId);
         playersOfInterest.threats.push(opponent);
       }
 
       // top
       if (this.player.x == opponent.x && this.player.y === opponent.y + 1) {
-        console.error('top', playerId);
+        console.error("top", playerId);
         playersOfInterest.top = opponent;
       }
 
       // below
       if (this.player.x == opponent.x && this.player.y === opponent.y - 1) {
-        console.error('below', playerId);
+        console.error("below", playerId);
         playersOfInterest.below = opponent;
       }
 
       // left
       if (this.player.y == opponent.y && this.player.x === opponent.x - 1) {
-        console.error('left', playerId);
+        console.error("left", playerId);
         playersOfInterest.right = opponent;
       }
 
       // right
       if (this.player.y == opponent.y && this.player.x === opponent.x + 1) {
-        console.error('right', playerId);
+        console.error("right", playerId);
         playersOfInterest.right = opponent;
       }
     });
@@ -128,16 +132,26 @@ module.exports = class ArenaSimulator {
     return playersOfInterest;
   }
 
+  // moveToThreat() {
+  //   const opponent = threats.sort((a, b) => a.score - b.score);
+  //   const { x, y, direction } = this.player;
+  //   if (x === opponent.x) {
+  //     if (y - opponent.y  < 0)
+  //   }
+  //   // move towards threat
+  // }
+
   calculateNextMove() {
     const playersOfInterest = this.findPlayersOfInterest();
 
-    if  (playersOfInterest.threats.length > 0 && this.player.wasHit) {
-      const opponent = threats[0]
-      // move towards threat
-
-
+    if (
+      playersOfInterest.threats.length > 0 &&
+      (this.player.wasHit || playersOfInterest.targets.length === 0)
+    ) {
+      console.error("move to threat", playersOfInterest.threats.join(","));
+      // return this.moveToThreat();
     }
-    console.error('threats', playersOfInterest.threats.join(','));
+
     if (playersOfInterest.targets.length > 0) {
       // TODO: players might get stuck shooting each other
       console.error("throw", playersOfInterest.targets[0]);
@@ -145,7 +159,7 @@ module.exports = class ArenaSimulator {
     }
 
     const validMoves = this.getValidNextMoves(playersOfInterest);
-    console.error('valid moves', validMoves);
+    console.error("valid moves", validMoves);
     if (validMoves.includes("F")) {
       console.error("move forward");
       return "F";
