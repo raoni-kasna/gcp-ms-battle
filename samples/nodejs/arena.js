@@ -2,7 +2,7 @@ module.exports = class ArenaSimulator {
   constructor(arena) {
     this.arena = arena.arena;
     this.player = this.arena.state[arena._links.self.href];
-    console.log("player", player);
+    console.error("player", player);
   }
 
   static isTarget(shooter, target) {
@@ -93,14 +93,14 @@ module.exports = class ArenaSimulator {
 
       const isTarget = ArenaSimulator.isTarget(this.player, opponent);
       if (isTarget) {
-        console.log('target', playerId);
-        console.log(this.player, opponent);
+        console.error('target', playerId);
+        console.error(this.player, opponent);
         playersOfInterest.targets.push(opponent);
       }
 
       const isThreat = ArenaSimulator.isTarget(opponent, this.player);
       if (isThreat) {
-        console.log('threat', playerId);
+        console.error('threat', playerId);
         playersOfInterest.threats.push(opponent);
       }
 

@@ -19,7 +19,8 @@ app.post("/", function (req, res) {
 
     res.send(nextMove);
   } catch (error) {
-    console.log(error);
+    console.error(req.body);
+    console.error(error);
     const moves = ["F", "T", "L", "R"];
     res.send(moves[Math.floor(Math.random() * moves.length)]);
   }
