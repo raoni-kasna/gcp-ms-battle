@@ -136,17 +136,17 @@ module.exports = class ArenaSimulator {
     const playersOfInterest = this.findPlayersOfInterest();
     const validMoves = this.getValidNextMoves(playersOfInterest);
 
-    if (
-      playersOfInterest.threats.length > 0 &&
-      (this.player.wasHit || playersOfInterest.targets.length === 0)
-    ) {
-      console.error("move to threat", playersOfInterest.threats.join(","));
-      if (validMoves.includes('F')) {
-        return 'F'
-      }
+    // if (
+    //   playersOfInterest.threats.length > 0 &&
+    //   (this.player.wasHit || playersOfInterest.targets.length === 0)
+    // ) {
+    //   console.error("move to threat", playersOfInterest.threats.join(","));
+    //   if (validMoves.includes('F')) {
+    //     return 'F'
+    //   }
 
-      return validMoves[Math.floor(Math.random() * validMoves.length)];
-    }
+    //   return validMoves[Math.floor(Math.random() * validMoves.length)];
+    // }
 
     if (playersOfInterest.targets.length > 0) {
       console.error("throw", playersOfInterest.targets[0]);
