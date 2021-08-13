@@ -131,19 +131,19 @@ module.exports = class ArenaSimulator {
 
     if (playersOfInterest.targets.length > 0) {
       // TODO: players might get stuck shooting each other
-      console.log('throw', playersOfInterest.targets);
+      console.error('throw', playersOfInterest.targets);
       return 'T';
     }
 
     const validMoves = this.getValidNextMoves(playersOfInterest);
     if (validMoves.includes('F')) {
-      console.log('move forward');
+      console.error('move forward');
       return 'F'
     }
 
     const nextMove =
       validMoves[Math.floor(Math.random() * validMoves.length)];
-    console.log('Random move', validMoves, nextMove);
+    console.error('Random move', validMoves, nextMove);
 
     return nextMove;
   }
