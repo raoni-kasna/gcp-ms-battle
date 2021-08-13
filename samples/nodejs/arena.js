@@ -6,13 +6,13 @@ module.exports = class ArenaSimulator {
 
   static isTarget(shooter, target) {
     switch (shooter.direction) {
-      case 'N':
+      case "N":
         return shooter.x === target.x && shooter.y - 3 <= target.y;
-      case 'S':
+      case "S":
         return shooter.x === target.x && shooter.y + 3 >= target.y;
-      case 'W':
+      case "W":
         return shooter.y === target.y && shooter.x + 3 >= target.y;
-      case 'E':
+      case "E":
         return shooter.y === target.y && shooter.x - 3 <= target.x;
       default:
         return false;
@@ -25,49 +25,49 @@ module.exports = class ArenaSimulator {
 
     // F
     const invalidForward =
-      (x === 0 && direction === 'W') ||
-      (x === this.arena.dims[0] && direction === 'E') ||
-      (y === 0 && direction === 'N') ||
-      (y === this.arena.dims[0] && direction === 'S');
+      (x === 0 && direction === "W") ||
+      (x === this.arena.dims[0] && direction === "E") ||
+      (y === 0 && direction === "N") ||
+      (y === this.arena.dims[0] && direction === "S");
     if (!invalidForward) {
-        let canMoveForward = true;
+      let canMoveForward = true;
 
-        switch (direction) {
-            case 'N':
-                canMoveForward = playersOfInterest.above !== null;
-            case 'S':
-                canMoveForward = playersOfInterest.below !== null;
-            case 'W':
-                canMoveForward = playersOfInterest.left !== null;
-            case 'E':
-                canMoveForward = playersOfInterest.right !== null;
-            default:
-                canMoveForward = true;
-        }
+      switch (direction) {
+        case "N":
+          canMoveForward = playersOfInterest.above !== null;
+        case "S":
+          canMoveForward = playersOfInterest.below !== null;
+        case "W":
+          canMoveForward = playersOfInterest.left !== null;
+        case "E":
+          canMoveForward = playersOfInterest.right !== null;
+        default:
+          canMoveForward = true;
+      }
 
-        if (canMoveForward) {
-            givalidMoves.push('F');
-        }
+      if (canMoveForward) {
+        givalidMoves.push("F");
+      }
     }
 
     // R
     const invalidRight =
-      (x === this.arena.dims[0] && direction === 'N') ||
-      (x === 0 && direction === 'S') ||
-      (y === 0 && direction === 'W') ||
-      (y === this.arena.dims[0] && direction === 'E');
+      (x === this.arena.dims[0] && direction === "N") ||
+      (x === 0 && direction === "S") ||
+      (y === 0 && direction === "W") ||
+      (y === this.arena.dims[0] && direction === "E");
     if (!invalidRight) {
-      validMoves.push('R');
+      validMoves.push("R");
     }
 
     // L
     const invalidLeft =
-      (x === this.arena.dims[0] && direction === 'S') ||
-      (x === 0 && direction === 'N') ||
-      (y === 0 && direction === 'E') ||
-      (y === this.arena.dims[0] && direction === 'W');
+      (x === this.arena.dims[0] && direction === "S") ||
+      (x === 0 && direction === "N") ||
+      (y === 0 && direction === "E") ||
+      (y === this.arena.dims[0] && direction === "W");
     if (!invalidLeft) {
-      validMoves.push('L');
+      validMoves.push("L");
     }
 
     return validMoves;
@@ -102,49 +102,50 @@ module.exports = class ArenaSimulator {
 
       // top
       if (this.player.x == opponent.x && this.player.y === opponent.y + 1) {
-          playersOfInterest.below = opponent;
+        console.error('top', playerId);
+        playersOfInterest.top = opponent;
       }
 
       // below
       if (this.player.x == opponent.x && this.player.y === opponent.y - 1) {
-          playersOfInterest.below = opponent;
+        console.error('below', playerId);
+        playersOfInterest.below = opponent;
       }
-      
+
       // left
       if (this.player.y == opponent.y && this.player.x === opponent.x - 1) {
-          playersOfInterest.right = opponent;
+        console.error('left', playerId);
+        playersOfInterest.right = opponent;
       }
 
       // right
       if (this.player.y == opponent.y && this.player.x === opponent.x + 1) {
-          playersOfInterest.right = opponent;
+        console.error('right', playerId);
+        playersOfInterest.right = opponent;
       }
-
     });
 
     return playersOfInterest;
   }
-
 
   calculateNextMove() {
     const playersOfInterest = this.findPlayersOfInterest();
 
     if (playersOfInterest.targets.length > 0) {
       // TODO: players might get stuck shooting each other
-      console.error('throw', playersOfInterest.targets);
-      return 'T';
+      console.error("throw", playersOfInterest.targets);
+      return "T";
     }
 
     const validMoves = this.getValidNextMoves(playersOfInterest);
-    if (validMoves.includes('F')) {
-      console.error('move forward');
-      return 'F'
+    if (validMoves.includes("F")) {
+      console.error("move forward");
+      return "F";
     }
 
-    const nextMove =
-      validMoves[Math.floor(Math.random() * validMoves.length)];
-    console.error('Random move', validMoves, nextMove);
+    const nextMove = validMoves[Math.floor(Math.random() * validMoves.length)];
+    console.error("Random move", validMoves, nextMove);
 
     return nextMove;
   }
-}
+};

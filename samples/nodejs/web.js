@@ -1,30 +1,27 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 
-const ArenaSimulator = require('./arena');
+const ArenaSimulator = require("./arena");
 
 app.use(bodyParser.json());
 
-app.get('/', function (req, res) {
-    console.log('test get');
-    const moves = ['F', 'T', 'L', 'R'];
-    res.send(moves[Math.floor(Math.random() * moves.length)]);   
+app.get("/", function (req, res) {
+  console.log("test get");
+  const moves = ["F", "T", "L", "R"];
+  res.send(moves[Math.floor(Math.random() * moves.length)]);
 });
 
-app.post('/', function (req, res) {
-    console.log('test post');
-  console.log(req.body);
-  
+app.post("/", function (req, res) {
   try {
     const arenaSimulator = new ArenaSimulator(req.body);
     const nextMove = arenaSimulator.calculateNextMove();
 
-    res.send(nextMove);      
+    res.send(nextMove);
   } catch (error) {
     console.log(error);
-    const moves = ['F', 'T', 'L', 'R'];
-    res.send(moves[Math.floor(Math.random() * moves.length)]);   
+    const moves = ["F", "T", "L", "R"];
+    res.send(moves[Math.floor(Math.random() * moves.length)]);
   }
 });
 
