@@ -131,9 +131,10 @@ module.exports = class ArenaSimulator {
   calculateNextMove() {
     const playersOfInterest = this.findPlayersOfInterest();
 
+    console.error('threats', playersOfInterest.threats.join(','));
     if (playersOfInterest.targets.length > 0) {
       // TODO: players might get stuck shooting each other
-      console.error("throw", playersOfInterest.targets);
+      console.error("throw");
       return "T";
     }
 
@@ -145,7 +146,7 @@ module.exports = class ArenaSimulator {
     }
 
     const nextMove = validMoves[Math.floor(Math.random() * validMoves.length)];
-    console.error("Random move", validMoves, nextMove);
+    console.error("Random move");
 
     return nextMove;
   }
