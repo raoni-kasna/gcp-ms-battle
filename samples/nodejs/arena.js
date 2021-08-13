@@ -27,9 +27,9 @@ module.exports = class ArenaSimulator {
     // F
     const invalidForward =
       (x === 0 && direction === "W") ||
-      (x === this.arena.dims[0] && direction === "E") ||
+      (x === this.arena.dims[0] - 1  && direction === "E") ||
       (y === 0 && direction === "N") ||
-      (y === this.arena.dims[0] && direction === "S");
+      (y === this.arena.dims[0] - 1 && direction === "S");
     if (!invalidForward) {
       let canMoveForward = true;
 
@@ -53,20 +53,20 @@ module.exports = class ArenaSimulator {
 
     // R
     const invalidRight =
-      (x === this.arena.dims[0] && direction === "N") ||
+      (x === this.arena.dims[0] - 1 && direction === "N") ||
       (x === 0 && direction === "S") ||
       (y === 0 && direction === "W") ||
-      (y === this.arena.dims[0] && direction === "E");
+      (y === this.arena.dims[0] - 1 && direction === "E");
     if (!invalidRight) {
       validMoves.push("R");
     }
 
     // L
     const invalidLeft =
-      (x === this.arena.dims[0] && direction === "S") ||
+      (x === this.arena.dims[0] - 1 && direction === "S") ||
       (x === 0 && direction === "N") ||
       (y === 0 && direction === "E") ||
-      (y === this.arena.dims[0] && direction === "W");
+      (y === this.arena.dims[0] -1 && direction === "W");
     if (!invalidLeft) {
       validMoves.push("L");
     }
